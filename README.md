@@ -21,3 +21,15 @@ The script reads the first sheet that has a **Question** header and an **Answer*
 
 ## About sign-in
 Student profiles are saved in the browser on the device being used. That suits a classroom computer or a student's own device. Profiles don't sync between devices, and there's no password. Real accounts that work on any device would need a hosted backend such as Firebase or Supabase.
+
+## Live site
+The app runs at **https://tajweed.hifzapp.link**, served by nginx on the Vultr server (`45.63.100.246`) from `/var/www/tajweed-flashcards`. The server's `certbot` renews the HTTPS certificate automatically.
+
+### Publishing changes
+Push your changes to GitHub, then pull them onto the server. This doesn't need a password:
+
+```bash
+ssh dawr@45.63.100.246 "git -C /var/www/tajweed-flashcards pull --ff-only"
+```
+
+`deploy/setup-server.sh` is the one-time server setup (nginx site and HTTPS certificate). You only need it again to rebuild the server.
