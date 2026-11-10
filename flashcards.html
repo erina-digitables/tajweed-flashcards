@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tajweed Flashcards</title>
+  <meta name="description" content="Tajweed rule flashcards with progress tracking and mistake review.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Figtree:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" title="Home">
+      <span class="brand-mark" aria-hidden="true">ت</span>
+      <div>
+        <div class="brand-title">Tajweed</div>
+        <div class="brand-sub">Flashcards</div>
+      </div>
+    </a>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" id="progressBtn" type="button">Progress</button>
+      <button class="profile-chip" id="profileBtn" type="button" aria-haspopup="dialog">
+        <span class="avatar" id="profileAvatar">?</span>
+        <span id="profileLabel">Guest · Sign in</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- STUDY VIEW -->
+    <section id="studyView">
+      <div class="study-head">
+        <div>
+          <div class="mode-label" id="modeLabel">Full set</div>
+          <div class="counter"><span id="counterNow">1</span> <span class="muted">of</span> <span id="counterTotal">0</span></div>
+        </div>
+        <div class="study-tools">
+          <button class="btn btn-tool" id="undoBtn" type="button" title="Undo last answer (Z)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
+            <span>Undo</span>
+          </button>
+          <button class="btn btn-tool" id="shuffleBtn" type="button" title="Shuffle remaining cards (S)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
+            <span>Shuffle</span>
+          </button>
+          <button class="btn btn-tool" id="restartBtn" type="button" title="Restart the full set">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Restart</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="progress" aria-hidden="true">
+        <div class="progress-right" id="barRight"></div>
+        <div class="progress-wrong" id="barWrong"></div>
+      </div>
+      <div class="tally">
+        <span class="tally-item wrong"><b id="tallyWrong">0</b> Still learning</span>
+        <span class="tally-item right"><b id="tallyRight">0</b> Know it</span>
+      </div>
+
+      <div class="card-stage">
+        <button class="flashcard" id="card" type="button" aria-live="polite" aria-label="Flashcard. Press to flip.">
+          <div class="face front">
+            <div class="face-label">Question</div>
+            <div class="face-text" id="qText" dir="auto"></div>
+            <div class="face-hint">Tap to reveal answer</div>
+          </div>
+          <div class="face back">
+            <div class="face-label" id="aLabel">Answer</div>
+            <div class="face-text" id="aText" dir="auto"></div>
+          </div>
+        </button>
+      </div>
+
+      <div class="grade-row">
+        <button class="btn btn-grade wrong" id="wrongBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          Still learning
+        </button>
+        <button class="btn btn-grade right" id="rightBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Got it
+        </button>
+      </div>
+      <p class="keys muted">Keys: <kbd>Space</kbd> flip · <kbd>←</kbd> still learning · <kbd>→</kbd> got it · <kbd>Z</kbd> undo · <kbd>S</kbd> shuffle</p>
+    </section>
+
+    <!-- RESULTS VIEW -->
+    <section id="doneView" hidden>
+      <div class="done-card">
+        <div class="ring" id="ring" style="--pct:0">
+          <div class="ring-inner"><span id="donePct">0%</span><small>correct</small></div>
+        </div>
+        <h1 class="done-title" id="doneTitle">Set complete</h1>
+        <p class="done-sub" id="doneSub"></p>
+        <div class="done-actions">
+          <button class="btn btn-primary" id="redoBtn" type="button">Redo mistakes only</button>
+          <button class="btn btn-secondary" id="againBtn" type="button">Restart full set</button>
+          <button class="btn btn-secondary" id="shuffleAgainBtn" type="button">Shuffle &amp; restart</button>
+        </div>
+        <p class="save-note" id="saveNote"></p>
+      </div>
+      <div class="missed" id="missedWrap">
+        <h2>Cards to review</h2>
+        <ol id="missedList"></ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- PROFILE DIALOG -->
+  <dialog id="profileDialog" class="sheet">
+    <form method="dialog" class="sheet-inner" id="profileForm">
+      <div class="sheet-head">
+        <h2>Student sign in</h2>
+        <button class="icon-btn" value="cancel" aria-label="Close">×</button>
+      </div>
+      <p class="muted small">Optional. Signing in saves each student's progress on this device. You can use every feature as a guest.</p>
+      <div id="profileList" class="profile-list"></div>
+      <label class="field">
+        <span>New student</span>
+        <div class="field-row">
+          <input id="newName" type="text" maxlength="40" placeholder="Student name" autocomplete="off">
+          <button class="btn btn-primary" id="createProfile" type="button">Add &amp; sign in</button>
+        </div>
+      </label>
+      <div class="sheet-foot" id="signOutWrap" hidden>
+        <button class="btn btn-ghost" id="signOutBtn" type="button">Sign out (continue as guest)</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- PROGRESS DIALOG -->
+  <dialog id="progressDialog" class="sheet sheet-wide">
+    <div class="sheet-inner">
+      <div class="sheet-head">
+        <h2 id="progressTitle">Progress</h2>
+        <button class="icon-btn" id="closeProgress" aria-label="Close">×</button>
+      </div>
+      <div id="progressBody"></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="cards.js?v=4"></script>
+  <script src="app.js?v=4"></script>
+</body>
+</html>
