@@ -23,8 +23,9 @@
   color-scheme: light;
 }
 
+/* Dark theme: follows the device unless the person picks light or dark with the toggle. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     /* Dark theme */
     --bg: #091A14;
     --bg-2: #0C2019;
@@ -44,6 +45,26 @@
     --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 16px 36px -14px rgba(0, 0, 0, .65);
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  /* Dark theme */
+  --bg: #091A14;
+  --bg-2: #0C2019;
+  --surface: #0E2219;   /* cards */
+  --ink: #FAF7F0;       /* cream text */
+  --ink-2: #CDD6CF;
+  --muted: #8DA197;
+  --line: #1D3A2F;
+  --brand: #FAF7F0;     /* cream buttons with green text */
+  --brand-ink: #0F4C3A;
+  --brand-soft: #16362A;
+  --gold: #C49A2A;
+  --right: #4CC283;
+  --right-soft: #12301F;
+  --wrong: #E24B4A;
+  --wrong-soft: #3A1716;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 16px 36px -14px rgba(0, 0, 0, .65);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -406,3 +427,16 @@ a.btn { text-decoration: none; }
   .steps, .features, .levels { grid-template-columns: 1fr; }
   .hero-cta .btn { width: 100%; }
 }
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  width: 40px; height: 40px; flex: none; display: grid; place-items: center;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  border-radius: 999px; cursor: pointer; padding: 0;
+}
+.theme-toggle:hover { border-color: var(--brand); }
+.theme-toggle svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .i-sun { display: none; }
+.theme-toggle.is-dark .i-sun { display: block; }
+.theme-toggle.is-dark .i-moon { display: none; }
+@media (max-width: 560px) { .theme-toggle { width: 36px; height: 36px; } }
