@@ -1,20 +1,21 @@
 :root {
-  --bg: #f5efe3;
-  --bg-2: #ede4d2;
-  --surface: #fffdf8;
-  --ink: #1d2626;
-  --ink-2: #4c5856;
-  --muted: #7d8683;
-  --line: #e2d8c4;
-  --brand: #0f5a52;
-  --brand-ink: #ffffff;
-  --brand-soft: #dcebe6;
-  --gold: #b07f26;
-  --right: #1f8a55;
-  --right-soft: #dff1e6;
-  --wrong: #c2482e;
-  --wrong-soft: #f8e1da;
-  --shadow: 0 1px 2px rgba(40, 30, 10, .06), 0 12px 32px -12px rgba(40, 30, 10, .22);
+  /* Light theme (default) */
+  --bg: #FAF7F0;          /* cream page background */
+  --bg-2: #F1ECDF;
+  --surface: #FFFFFF;     /* cards */
+  --ink: #0F4C3A;         /* brand green text */
+  --ink-2: #3B5E52;
+  --muted: #6E8279;
+  --line: #E6DFCF;
+  --brand: #0F4C3A;       /* brand green buttons */
+  --brand-ink: #FAF7F0;
+  --brand-soft: #E2ECE6;
+  --gold: #B8862A;
+  --right: #1F7A4D;
+  --right-soft: #E1F0E7;
+  --wrong: #C53030;
+  --wrong-soft: #FBE5E3;
+  --shadow: 0 1px 2px rgba(15, 76, 58, .06), 0 12px 32px -12px rgba(15, 76, 58, .22);
   --radius: 20px;
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -24,22 +25,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121817;
-    --bg-2: #18201f;
-    --surface: #1c2524;
-    --ink: #eef1ec;
-    --ink-2: #c3cbc6;
-    --muted: #8c9792;
-    --line: #2d3836;
-    --brand: #5cc2aa;
-    --brand-ink: #0b1716;
-    --brand-soft: #1f3a35;
-    --gold: #d9a94a;
-    --right: #4cc283;
-    --right-soft: #1b3326;
-    --wrong: #ec7a5f;
-    --wrong-soft: #3a221c;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 16px 36px -14px rgba(0, 0, 0, .6);
+    /* Dark theme */
+    --bg: #091A14;
+    --bg-2: #0C2019;
+    --surface: #0E2219;   /* cards */
+    --ink: #FAF7F0;       /* cream text */
+    --ink-2: #CDD6CF;
+    --muted: #8DA197;
+    --line: #1D3A2F;
+    --brand: #FAF7F0;     /* cream buttons with green text */
+    --brand-ink: #0F4C3A;
+    --brand-soft: #16362A;
+    --gold: #C49A2A;
+    --right: #4CC283;
+    --right-soft: #12301F;
+    --wrong: #E24B4A;
+    --wrong-soft: #3A1716;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 16px 36px -14px rgba(0, 0, 0, .65);
     color-scheme: dark;
   }
 }
@@ -49,9 +51,7 @@ html, body { margin: 0; }
 body {
   font-family: var(--sans);
   color: var(--ink);
-  background:
-    radial-gradient(1200px 600px at 50% -200px, var(--bg-2), transparent 70%),
-    var(--bg);
+  background: var(--bg);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -90,7 +90,7 @@ button { font: inherit; color: inherit; }
   display: grid; place-items: center; font-size: .85rem; font-weight: 700;
   background: var(--bg-2); color: var(--ink-2);
 }
-.avatar.on { background: var(--gold); color: #fff; }
+.avatar.on { background: var(--gold); color: #FAF7F0; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -233,7 +233,7 @@ kbd {
   width: min(460px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
 }
 .sheet-wide { width: min(760px, calc(100vw - 32px)); }
-.sheet::backdrop { background: rgba(15, 20, 18, .45); backdrop-filter: blur(2px); }
+.sheet::backdrop { background: rgba(9, 26, 20, .5); backdrop-filter: blur(2px); }
 .sheet-inner { padding: 20px 22px 22px; }
 .sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
 .sheet-head h2 { font-family: var(--serif); font-weight: 650; margin: 0; font-size: 1.35rem; }
@@ -312,7 +312,7 @@ a.btn { text-decoration: none; }
 /* ---------- Home page ---------- */
 .home main { overflow-x: clip; }
 .btn-lg { padding: 14px 22px; font-size: 1.05rem; border-radius: 14px; }
-.btn-light { background: #fffdf8; color: #0f5a52; }
+.btn-light { background: #FAF7F0; color: #0F4C3A; }
 .btn-light:hover { filter: brightness(.96); }
 .center { text-align: center; }
 
@@ -388,7 +388,7 @@ a.btn { text-decoration: none; }
 
 .cta-band {
   max-width: 1040px; margin: 0 auto clamp(32px, 5vw, 56px); padding: clamp(36px, 6vw, 56px) 24px;
-  background: #0f5a52; color: #fff; text-align: center; border-radius: 0;
+  background: #0F4C3A; color: #FAF7F0; text-align: center; border-radius: 0;
 }
 .cta-band h2 { font-family: var(--serif); font-weight: 650; font-size: clamp(1.6rem, 3.6vw, 2.3rem); margin: 0 0 8px; letter-spacing: -.02em; }
 .cta-band p { margin: 0 0 24px; opacity: .85; }
